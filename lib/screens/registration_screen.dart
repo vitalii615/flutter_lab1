@@ -29,6 +29,12 @@ class RegistrationScreen extends StatelessWidget {
             const SizedBox(height: 10),
             const CustomTextField(hintText: 'Пароль', isPassword: true),
             const SizedBox(height: 20),
+            CustomButton(
+              text: 'Зареєструватися',
+              onPressed: () {
+                Navigator.pop(context); // Повернення до екрану логіну
+              },
+            ),
           ],
         ),
       ),
