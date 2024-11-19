@@ -19,6 +19,12 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.indigo,
           foregroundColor: Colors.white,
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blueAccent,
+            foregroundColor: Colors.white, // для тексту і іконок
+          ),
+        ),
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Colors.white),
         ),
