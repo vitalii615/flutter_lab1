@@ -49,9 +49,10 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: screenHeight * 0.02),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.push<ProfileScreen>(
                   context,
-                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()),
                 );
               },
               child: const Text('Перейти до профілю'),
