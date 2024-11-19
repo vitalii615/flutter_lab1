@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_textfield.dart'; 
+import '../widgets/custom_button.dart';   
+import 'registration_screen.dart'; 
+import 'home_screen.dart'; 
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -24,6 +27,24 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 10),
             const CustomTextField(hintText: 'Пароль', isPassword: true), // Поле пароля
             const SizedBox(height: 20),
+            CustomButton(
+              text: 'Увійти',
+              onPressed: () {
+                Navigator.push( // Перехід на головний екран
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push( // Перехід на екран реєстрації
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegistrationScreen()),
+                );
+              },
+              child: const Text('Зареєструватися'),
+            ),
           ],
         ),
       ),
