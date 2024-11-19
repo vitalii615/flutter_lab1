@@ -5,7 +5,7 @@ class CollapsibleTour extends StatefulWidget {
   final String tourName;
   final List<Map<String, String>> matches;
   final bool isOpen;
-  final Function(String) onToggle;
+  final void Function(String) onToggle; 
 
   const CollapsibleTour({
     super.key,
@@ -26,7 +26,7 @@ class _CollapsibleTourState extends State<CollapsibleTour> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         GestureDetector(
-          onTap: () => widget.onToggle(widget.tourName),
+          onTap: () => widget.onToggle(widget.tourName),  // onToggle приймає tourName як аргумент
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
             color: widget.isOpen ? Colors.blue[800] : Colors.blue,
