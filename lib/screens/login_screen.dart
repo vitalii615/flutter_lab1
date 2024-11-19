@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
             CustomButton(
               text: 'Увійти',
               onPressed: () {
-                Navigator.push( // Перехід на головний екран
+                Navigator.push<HomeScreen>( // Явно вказаний тип для HomeScreen
                   context,
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
                 );
@@ -38,7 +38,7 @@ class LoginScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Navigator.push( // Перехід на екран реєстрації
+                Navigator.push<RegistrationScreen>( // Явно вказаний тип для RegistrationScreen
                   context,
                   MaterialPageRoute(builder: (context) => const RegistrationScreen()),
                 );
