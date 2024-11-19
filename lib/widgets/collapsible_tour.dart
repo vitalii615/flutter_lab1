@@ -5,7 +5,7 @@ class CollapsibleTour extends StatefulWidget {
   final String tourName;
   final List<Map<String, String>> matches;
   final bool isOpen;
-  final void Function(String) onToggle; 
+  final void Function(String) onToggle; // тип функції як void Function(String)
 
   const CollapsibleTour({
     super.key,
@@ -22,17 +22,27 @@ class CollapsibleTour extends StatefulWidget {
 class _CollapsibleTourState extends State<CollapsibleTour> {
   @override
   Widget build(BuildContext context) {
+    // Отримуємо розміри екрана
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         GestureDetector(
-          onTap: () => widget.onToggle(widget.tourName),  // onToggle приймає tourName як аргумент
+          onTap: () => widget.onToggle(widget.tourName),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+            padding: EdgeInsets.symmetric(
+              vertical: screenHeight * 0.02, // вертикальний відступ
+              horizontal: screenWidth * 0.03, // горизонтальний відступ
+            ),
             color: widget.isOpen ? Colors.blue[800] : Colors.blue,
             child: Text(
               widget.tourName,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: screenWidth * 0.045, 
+              ),
             ),
           ),
         ),

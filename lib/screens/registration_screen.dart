@@ -7,28 +7,35 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Отримання розмірів екрана
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Реєстрація'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(screenWidth * 0.04),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Створіть акаунт',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: screenWidth * 0.06,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.03), // відступ
             const CustomTextField(hintText: 'Ім’я'),
-            const SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.015), // між текстовими полями
             const CustomTextField(hintText: 'Прізвище'),
-            const SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.015),
             const CustomTextField(hintText: 'Електронна пошта'),
-            const SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.015),
             const CustomTextField(hintText: 'Пароль', isPassword: true),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.03), // перед кнопкою
             CustomButton(
               text: 'Зареєструватися',
               onPressed: () {

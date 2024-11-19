@@ -23,14 +23,14 @@ class ProfileScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: screenWidth * 0.15, // розмір аватарки
-                backgroundColor: Colors.grey[300], // Місце для фото профілю
+                backgroundColor: Colors.grey[300], // фото профілю
                 child: Icon(
                   Icons.person,
-                  size: screenWidth * 0.15, // розмір іконки
+                  size: screenWidth * 0.15,
                   color: Colors.grey[700],
                 ),
               ),
-              SizedBox(height: screenHeight * 0.03), // Відступ між елементами
+              SizedBox(height: screenHeight * 0.03), // Відступ 
               const Text(
                 'Ім’я користувача',
                 style: TextStyle(fontSize: 18),
@@ -39,12 +39,12 @@ class ProfileScreen extends StatelessWidget {
                 'email@example.com',
                 style: TextStyle(color: Colors.grey),
               ),
-              SizedBox(height: screenHeight * 0.03), // Відступ між елементами
+              SizedBox(height: screenHeight * 0.03), 
               CustomButton(
                 text: 'Редагувати профіль',
-                onPressed: () {}, // логіка редагування
+                onPressed: () {}, // логіка редагування в майб
               ),
-              SizedBox(height: screenHeight * 0.02), // Відступ між кнопками
+              SizedBox(height: screenHeight * 0.02), 
               CustomButton(
                 text: 'Вийти',
                 onPressed: () {

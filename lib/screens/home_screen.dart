@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../data/matches_data.dart';
 import '../widgets/collapsible_tour.dart';
-import 'profile_screen.dart'; // Імпорт екрану профілю
+import 'profile_screen.dart'; 
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

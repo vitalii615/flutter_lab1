@@ -9,41 +9,51 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Логін'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0), // Відступи навколо
+        padding: EdgeInsets.all(screenWidth * 0.04), // Відступи
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // Центрування елементів
+          mainAxisAlignment: MainAxisAlignment.center, 
           children: [
-            const Text(
+            Text(
               'Ліга Чемпіонів 2024',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: screenWidth * 0.06, 
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 20),
-            const CustomTextField(hintText: 'Електронна пошта'), // Використання кастомного поля
-            const SizedBox(height: 10),
-            const CustomTextField(hintText: 'Пароль', isPassword: true), // Поле пароля
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.03), // Висота відступу
+            const CustomTextField(hintText: 'Електронна пошта'),
+            SizedBox(height: screenHeight * 0.015), 
+            const CustomTextField(hintText: 'Пароль', isPassword: true),
+            SizedBox(height: screenHeight * 0.03), // Відступ перед кнопкою
             CustomButton(
               text: 'Увійти',
               onPressed: () {
-                Navigator.push<HomeScreen>( // Явно вказаний тип для HomeScreen
+                Navigator.push<HomeScreen>(
                   context,
                   MaterialPageRoute(builder: (context) => const HomeScreen()),
                 );
               },
             ),
+            SizedBox(height: screenHeight * 0.02), // Відступ між кнопками
             TextButton(
               onPressed: () {
-                Navigator.push<RegistrationScreen>( // Явно вказаний тип для RegistrationScreen
+                Navigator.push<RegistrationScreen>(
                   context,
                   MaterialPageRoute(builder: (context) => const RegistrationScreen()),
                 );
               },
-              child: const Text('Зареєструватися'),
+              child: Text(
+                'Зареєструватися',
+                style: TextStyle(fontSize: screenWidth * 0.045),
+              ),
             ),
           ],
         ),
