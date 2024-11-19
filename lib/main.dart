@@ -28,6 +28,11 @@ class MyApp extends StatelessWidget {
         textTheme: const TextTheme(
           bodyMedium: TextStyle(color: Colors.white),
         ),
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.white,
+          textColor: Colors.black,
+          subtitleTextStyle: TextStyle(color: Colors.white),
+        ),
       ),
       home: const LoginScreen(),
     );
