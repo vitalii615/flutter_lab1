@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_textfield.dart'; 
 import '../widgets/custom_button.dart';   
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
+
+  @override
+  _RegistrationScreenState createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,34 +24,92 @@ class RegistrationScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(screenWidth * 0.04),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Створіть акаунт',
-              style: TextStyle(
-                fontSize: screenWidth * 0.06,
-                fontWeight: FontWeight.bold,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Створіть акаунт',
+                style: TextStyle(
+                  fontSize: screenWidth * 0.06,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(height: screenHeight * 0.03), // відступ
-            const CustomTextField(hintText: 'Ім’я'),
-            SizedBox(height: screenHeight * 0.015), // між текстовими полями
-            const CustomTextField(hintText: 'Прізвище'),
-            SizedBox(height: screenHeight * 0.015),
-            const CustomTextField(hintText: 'Електронна пошта'),
-            SizedBox(height: screenHeight * 0.015),
-            const CustomTextField(hintText: 'Пароль', isPassword: true),
-            SizedBox(height: screenHeight * 0.03), // перед кнопкою
-            CustomButton(
-              text: 'Зареєструватися',
-              onPressed: () {
-                Navigator.pop(context); // Повернення до екрану логіну
-              },
-            ),
-          ],
+              SizedBox(height: screenHeight * 0.03), // відступ
+              CustomTextField(
+                hintText: 'Ім’я',
+                validator: _validateName,
+              ),
+              SizedBox(height: screenHeight * 0.015), // між текстовими полями
+              CustomTextField(
+                hintText: 'Прізвище',
+                validator: _validateSurname,
+              ),
+              SizedBox(height: screenHeight * 0.015),
+              CustomTextField(
+                hintText: 'Електронна пошта',
+                validator: _validateEmail,
+              ),
+              SizedBox(height: screenHeight * 0.015),
+              CustomTextField(
+                hintText: 'Пароль',
+                isPassword: true,
+                validator: _validatePassword,
+              ),
+              SizedBox(height: screenHeight * 0.03), // перед кнопкою
+              CustomButton(
+                text: 'Зареєструватися',
+                onPressed: () {
+                  if (_formKey.currentState?.validate() == true) {
+                    Navigator.pop(context); // Повернення до екрану логіну
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  String? _validateName(String? value) {
+    final nameExp = RegExp(r'^[A-Za-zА-Яа-я]+$');
+    if (value == null || value.isEmpty) {
+      return 'Ім’я обов’язкове для заповнення.';
+    } else if (!nameExp.hasMatch(value)) {
+      return 'Ім’я має містити лише букви алфавіту.';
+    }
+    return null;
+  }
+
+  String? _validateSurname(String? value) {
+    final surnameExp = RegExp(r'^[A-Za-zА-Яа-я]+$');
+    if (value == null || value.isEmpty) {
+      return 'Прізвище обов’язкове для заповнення.';
+    } else if (!surnameExp.hasMatch(value)) {
+      return 'Прізвище має містити лише букви алфавіту.';
+    }
+    return null;
+  }
+
+  String? _validateEmail(String? value) {
+    final emailExp = RegExp(r'^[a-z]{1}[a-z]*\.[a-z]{1}[a-z]*@[a-z]+\.[a-z]{2,}$');
+    if (value == null || value.isEmpty) {
+      return 'Електронна пошта обов’язкова для заповнення.';
+    } else if (!emailExp.hasMatch(value)) {
+      return 'Формат ел. пошти має бути firstinitial.lastname@domain.com';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String? value) {
+    final passwordExp = RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$');
+    if (value == null || value.isEmpty) {
+      return 'Пароль обов’язковий для заповнення.';
+    } else if (!passwordExp.hasMatch(value)) {
+      return 'Пароль має бути не менше 8 символів, містити велику літеру, малу літеру, цифру і спеціальний символ.';
+    }
+    return null;
   }
 }
