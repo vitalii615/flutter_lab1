@@ -80,7 +80,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   void _showDialog() {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (context) {
         return AlertDialog(
