@@ -61,15 +61,50 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               CustomButton(
                 text: 'Зареєструватися',
                 onPressed: () {
-                  if (_formKey.currentState?.validate() == true) {
-                    Navigator.pop(context); // Повернення до екрану логіну
-                  }
+                  _submitForm();
                 },
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState?.validate() == true) {
+      Navigator.pop(context); // Повернення до екрану логіну
+    } else {
+      _showDialog();
+    }
+  }
+
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            'Регістрація фейл',
+            style: TextStyle(color: Colors.red),
+          ),
+          content: const Text(
+            'Перевірте наступні вимоги:\n\n'
+            '1. Ім’я і Прізвище повинно містити лише букви англійського або українського алфавіту.\n'
+            '2. Електронна пошта повинна бути у форматі firstinitial.lastname@domain.com.\n'
+            '3. Пароль повинен містити не менше 8 символів, включаючи велику літеру, малу літеру, цифру і спеціальний символ.',
+            style: TextStyle(color: Colors.black),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Зрозуміло'),
+            ),
+          ],
+        );
+      },
     );
   }
 
