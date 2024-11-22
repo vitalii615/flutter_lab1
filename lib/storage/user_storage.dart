@@ -4,6 +4,7 @@ abstract class UserStorage {
   Future<void> saveUserData(String name, String surname, String email, String password);
   Future<Map<String, String?>> getUserData();
   Future<void> clearUserData();
+  Future<void> updateUserData(Map<String, String> updates); // Додано
 }
 
 class SharedPreferencesUserStorage implements UserStorage {
@@ -39,5 +40,24 @@ class SharedPreferencesUserStorage implements UserStorage {
     await prefs.remove(_surnameKey);
     await prefs.remove(_emailKey);
     await prefs.remove(_passwordKey);
+  }
+
+  @override
+  Future<void> updateUserData(Map<String, String> updates) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Оновлюємо тільки ті ключі, які передані в `updates`
+    if (updates.containsKey('name')) {
+      await prefs.setString(_nameKey, updates['name']!);
+    }
+    if (updates.containsKey('surname')) {
+      await prefs.setString(_surnameKey, updates['surname']!);
+    }
+    if (updates.containsKey('email')) {
+      await prefs.setString(_emailKey, updates['email']!);
+    }
+    if (updates.containsKey('password')) {
+      await prefs.setString(_passwordKey, updates['password']!);
+    }
   }
 }
