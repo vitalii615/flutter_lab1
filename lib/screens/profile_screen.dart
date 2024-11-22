@@ -77,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ProfileEditScreen()),
+                        MaterialPageRoute<ProfileEditScreen>(builder: (context) => ProfileEditScreen()),
                       ); // Виправлення: додано закриття дужок
                     },
                   ),

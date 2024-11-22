@@ -87,7 +87,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       // Якщо зміна була успішною, переходимо на екран логіну
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
+        MaterialPageRoute<ProfileEditScreen>(builder: (context) => LoginScreen()),
       );
     } else {
       // Якщо дані не проходять перевірку, показуємо діалог
