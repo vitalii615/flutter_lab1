@@ -113,6 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           content: const Text(
             'Невірна електронна пошта або пароль. Будь ласка, спробуйте ще раз.',
+            style: TextStyle(color: Colors.black),
           ),
           actions: [
             TextButton(
