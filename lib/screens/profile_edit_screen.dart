@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../storage/user_storage.dart';
-import 'login_screen.dart'; // Перехід на екран логіну після редагування
+import 'login_screen.dart'; 
 
 class ProfileEditScreen extends StatefulWidget {
   const ProfileEditScreen({super.key});
@@ -21,7 +21,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     _userStorage = SharedPreferencesUserStorage();
   }
 
-  // Валідація email
   String? _validateEmail(String? value) {
     final emailExp = RegExp(r'^[a-z]{1}[a-z]*\.[a-z]{1}[a-z]*@[a-z]+\.[a-z]{2,}$');
     if (value == null || value.isEmpty) {
@@ -32,7 +31,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     return null;
   }
 
-  // Валідація паролю
   String? _validatePassword(String? value) {
     final passwordExp = RegExp(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$');
     if (value == null || value.isEmpty) {
@@ -43,7 +41,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     return null;
   }
 
-  // Діалог для помилки валідації
   void _showDialog() {
     showDialog<void>(
       context: context,
@@ -75,7 +72,6 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   // Відправка форми та оновлення даних
   void _onSubmit() async {
     if (_formKey.currentState!.validate()) {
-      // Отримуємо нові значення з полів форми
       final updatedData = {
         'email': _emailController.text,
         'password': _passwordController.text,
