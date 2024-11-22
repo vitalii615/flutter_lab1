@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_button.dart';
 import '../storage/user_storage.dart';
+import 'profile_edit_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -73,7 +74,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(height: screenHeight * 0.03),
                   CustomButton(
                     text: 'Редагувати профіль',
-                    onPressed: () {}, // логіка редагування
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfileEditScreen()),
+                      ); // Виправлення: додано закриття дужок
+                    },
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   CustomButton(
