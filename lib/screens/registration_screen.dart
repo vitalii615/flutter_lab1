@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/custom_textfield.dart'; 
 import '../widgets/custom_button.dart';   
+import '../storage/user_storage.dart'; 
+import 'login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
@@ -11,10 +13,30 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
+  late UserStorage _userStorage;
+
+  @override
+  void initState() {
+    super.initState();
+    _userStorage = SharedPreferencesUserStorage();
+  }
+
+  final _nameController = TextEditingController();
+  final _surnameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _surnameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Отримання розмірів екрана
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -36,33 +58,35 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: screenHeight * 0.03), // відступ
+              SizedBox(height: screenHeight * 0.03), // Відступ
               CustomTextField(
                 hintText: 'Ім’я',
+                controller: _nameController,
                 validator: _validateName,
               ),
-              SizedBox(height: screenHeight * 0.015), // між текстовими полями
+              SizedBox(height: screenHeight * 0.015), // Відступ між полями
               CustomTextField(
                 hintText: 'Прізвище',
+                controller: _surnameController,
                 validator: _validateSurname,
               ),
               SizedBox(height: screenHeight * 0.015),
               CustomTextField(
                 hintText: 'Електронна пошта',
+                controller: _emailController,
                 validator: _validateEmail,
               ),
               SizedBox(height: screenHeight * 0.015),
               CustomTextField(
                 hintText: 'Пароль',
                 isPassword: true,
+                controller: _passwordController,
                 validator: _validatePassword,
               ),
-              SizedBox(height: screenHeight * 0.03), // перед кнопкою
+              SizedBox(height: screenHeight * 0.03), // Відступ перед кнопкою
               CustomButton(
                 text: 'Зареєструватися',
-                onPressed: () {
-                  _submitForm();
-                },
+                onPressed: _submitForm,
               ),
             ],
           ),
@@ -71,9 +95,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState?.validate() == true) {
-      Navigator.pop(context); // Повернення до екрану логіну
+      await _userStorage.saveUserData(
+        _nameController.text,
+        _surnameController.text,
+        _emailController.text,
+        _passwordController.text,
+      );
+      Navigator.pushReplacement<void, void>(
+        context,
+        MaterialPageRoute<void>(builder: (context) => const LoginScreen()),
+      );
     } else {
       _showDialog();
     }
@@ -90,9 +123,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
           content: const Text(
             'Перевірте наступні вимоги:\n\n'
-            '1. Ім’я і Прізвище повинно містити лише букви англійського або українського алфавіту.\n'
-            '2. Електронна пошта повинна бути у форматі firstinitial.lastname@domain.com.\n'
-            '3. Пароль повинен містити не менше 8 символів, включаючи велику літеру, малу літеру, цифру і спеціальний символ.',
+            '1. Ім’я повинно містити лише букви англійського або українського алфавіту.\n'
+            '2. Прізвище повинно містити лише букви англійського або українського алфавіту.\n'
+            '3. Електронна пошта повинна бути у форматі firstinitial.lastname@domain.com.\n'
+            '4. Пароль повинен містити не менше 8 символів, включаючи велику літеру, малу літеру, цифру і спеціальний символ.',
             style: TextStyle(color: Colors.black),
           ),
           actions: [
