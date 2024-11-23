@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/custom_button.dart';
 import '../storage/user_storage.dart';
 import 'profile_edit_screen.dart';
+import 'login_screen.dart'; // Не забудьте імпортувати екран входу
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -50,19 +51,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // Центрування
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    radius: screenWidth * 0.15, // розмір аватарки
-                    backgroundColor: Colors.grey[300], // фото профілю
+                    radius: screenWidth * 0.15,
+                    backgroundColor: Colors.grey[300],
                     child: Icon(
                       Icons.person,
                       size: screenWidth * 0.15,
                       color: Colors.grey[700],
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.03), // Відступ
+                  SizedBox(height: screenHeight * 0.03),
                   Text(
                     userName,
                     style: const TextStyle(fontSize: 18),
@@ -77,16 +78,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute<ProfileEditScreen>(builder: (context) => ProfileEditScreen()),
-                      ); // Виправлення: додано закриття дужок
+                        MaterialPageRoute<ProfileEditScreen>(builder: (context) => const ProfileEditScreen()),
+                      );
                     },
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   CustomButton(
                     text: 'Вийти',
-                    onPressed: () {
-                      Navigator.pop(context); // Повернення до попереднього екрану
-                    },
+                    onPressed: _showLogoutDialog,
                   ),
                 ],
               ),
@@ -94,6 +93,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
       ),
+    );
+  }
+
+  void _showLogoutDialog() {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Вихід з облікового запису'),
+          content: const Text('Ви впевнені, що хочете вийти?', style: TextStyle(color: Colors.black),),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Скасувати'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await _userStorage.logOut(); // Додаємо await, щоб дочекатися завершення дії
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (route) => false, // Забезпечує видалення всіх попередніх маршрутів
+                );
+              },
+              child: const Text('Вийти'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
