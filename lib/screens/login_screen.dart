@@ -71,6 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () async {
                   final userData = await _userStorage.getUserData();
                   if (_emailController.text == userData['email'] && _passwordController.text == userData['password']) {
+                    await _userStorage.logIn();
                     Navigator.push<void>(
                       context,
                       MaterialPageRoute<void>(builder: (context) => const HomeScreen()),
