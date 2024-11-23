@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
+import 'screens/home_screen.dart';
+import 'storage/user_storage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final userStorage = SharedPreferencesUserStorage();
+  final isLoggedIn = await userStorage.isLoggedIn();
+
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Ліга Чемпіонів 2024',
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.indigo[900], 
+        scaffoldBackgroundColor: Colors.indigo[900],
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.indigo,
           foregroundColor: Colors.white,
@@ -22,7 +30,7 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blueAccent,
-            foregroundColor: Colors.white, // для тексту і іконок
+            foregroundColor: Colors.white,
           ),
         ),
         textTheme: const TextTheme(
@@ -34,7 +42,7 @@ class MyApp extends StatelessWidget {
           subtitleTextStyle: TextStyle(color: Colors.white),
         ),
       ),
-      home: const LoginScreen(),
+      home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
     );
   }
 }
