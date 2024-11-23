@@ -113,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 await _userStorage.logOut(); // Додаємо await, щоб дочекатися завершення дії
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  MaterialPageRoute<void>(builder: (context) => const LoginScreen()),
                   (route) => false, // Забезпечує видалення всіх попередніх маршрутів
                 );
               },
