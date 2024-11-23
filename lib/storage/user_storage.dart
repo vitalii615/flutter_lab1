@@ -69,7 +69,7 @@ class SharedPreferencesUserStorage implements UserStorage {
   @override
   Future<bool> isLoggedIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getKeys().isNotEmpty; 
+    return prefs.getBool(_isLoggedInKey) ?? false;
   }
 
 
