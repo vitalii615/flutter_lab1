@@ -4,6 +4,7 @@ import '../widgets/custom_button.dart';
 import 'registration_screen.dart'; 
 import 'home_screen.dart'; 
 import '../storage/user_storage.dart';
+import '../utils/network_check.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -69,6 +70,16 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomButton(
                 text: 'Увійти',
                 onPressed: () async {
+                  bool isConnected = await NetworkCheck.isConnected();
+                  if (!isConnected) {
+                    showNoInternetDialog(
+                      context,
+                      'Неможливо зайти в акк',
+                      'Немає мережі! Підключіть інет і як підключите інет натисніть кнопку "Refresh"',
+                    );
+                    return;
+                  }
+
                   final userData = await _userStorage.getUserData();
                   if (_emailController.text == userData['email'] && _passwordController.text == userData['password']) {
                     await _userStorage.logIn();
