@@ -33,6 +33,9 @@ dependencies:
   shared_preferences: ^2.3.3
   connectivity_plus: ^6.1.0
   http: ^1.2.2
+  light_plugin:
+    git:
+      url: https://github.com/vitalii615/my_light_plugin.git
 
 
   # The following adds the Cupertino Icons font to your application.
