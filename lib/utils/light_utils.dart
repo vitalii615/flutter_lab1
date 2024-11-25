@@ -17,7 +17,7 @@ class LightUtils {
   }
 
   static void _showUnsupportedFeatureDialog(BuildContext context) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
