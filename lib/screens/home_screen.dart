@@ -3,6 +3,7 @@ import 'package:my_project_lab1/utils/network_check.dart';
 import '../data/matches_data.dart';
 import '../widgets/collapsible_tour.dart';
 import 'profile_screen.dart'; 
+import './table_liga_chempions.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,6 +64,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ліга Чемпіонів 2024'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.table_chart),  
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(builder: (context) => TableLigaChempionsScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
