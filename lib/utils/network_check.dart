@@ -19,7 +19,7 @@ void showNoInternetDialog(BuildContext context, String title, String content) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title, style: const TextStyle(color: Colors.red)),
-        content: Text(content, style: TextStyle(color: Colors.black),),
+        content: Text(content, style: const TextStyle(color: Colors.black),),
         actions: <Widget>[
           TextButton(
             onPressed: () async {

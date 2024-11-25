@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'models_league_standings.dart'; 
+import 'package:my_project_lab1/api/models_league_standings.dart'; 
 
 class FootballApiService {
   static const String _baseUrl = 'https://api.football-data.org/v4';
