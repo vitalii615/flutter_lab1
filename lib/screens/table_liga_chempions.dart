@@ -14,7 +14,7 @@ class _TableLigaChempionsScreenState extends State<TableLigaChempionsScreen> {
   @override
   void initState() {
     super.initState();
-    LightUtils.turnLightOn(); 
+    LightUtils.turnLightOn(context);
   }
 
   @override
