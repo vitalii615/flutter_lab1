@@ -1,9 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:my_project_lab1/api/api_service.dart';  
-import 'package:my_project_lab1/api/models_league_standings.dart'; 
+import 'package:my_project_lab1/api/api_service.dart';
+import 'package:my_project_lab1/api/models_league_standings.dart';
+import 'package:my_project_lab1/utils/light_utils.dart';
 
-class TableLigaChempionsScreen extends StatelessWidget {
+class TableLigaChempionsScreen extends StatefulWidget {
   const TableLigaChempionsScreen({super.key});
+
+  @override
+  _TableLigaChempionsScreenState createState() => _TableLigaChempionsScreenState();
+}
+
+class _TableLigaChempionsScreenState extends State<TableLigaChempionsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    LightUtils.turnLightOn(); 
+  }
+
+  @override
+  void dispose() {
+    LightUtils.turnLightOff();
+    super.dispose();
+  }
 
   Future<TableLigaChempions> fetchStandings() async {
     return await FootballApiService.fetchStandings();
