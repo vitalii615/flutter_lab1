@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../api/api_service.dart';  
-import '../api/models_league_standings.dart'; 
+import 'package:my_project_lab1/api/api_service.dart';  
+import 'package:my_project_lab1/api/models_league_standings.dart'; 
 
 class TableLigaChempionsScreen extends StatelessWidget {
+  const TableLigaChempionsScreen({super.key});
+
   Future<TableLigaChempions> fetchStandings() async {
     return await FootballApiService.fetchStandings();
   }
@@ -11,31 +13,31 @@ class TableLigaChempionsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ліга Чемпіонів - Таблиця'),
+        title: const Text('Ліга Чемпіонів - Таблиця'),
         centerTitle: true,
       ),
       body: FutureBuilder<TableLigaChempions>(
         future: fetchStandings(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Помилка при завантаженні даних'));
+            return const Center(child: Text('Помилка при завантаженні даних'));
           } else if (!snapshot.hasData || snapshot.data!.standings.isEmpty) {
-            return Center(child: Text('Немає даних для відображення'));
+            return const Center(child: Text('Немає даних для відображення'));
           } else {
-            var standings = snapshot.data!.standings;
+            final standings = snapshot.data!.standings;
             return ListView.builder(
               itemCount: standings.length,
               itemBuilder: (context, index) {
-                var team = standings[index];
+                final team = standings[index];
                 return Card(
-                  margin: EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8),
                   child: ListTile(
                     leading: Text('${team.position}'),
                     title: Text(team.teamName),
                     subtitle: Text(
-                        'Matches: ${team.playedGames} | Points: ${team.points} | +/-: ${team.goalDifference} | Goals: ${team.goalsFor}'),
+                        'Matches: ${team.playedGames} | Points: ${team.points} | +/-: ${team.goalDifference} | Goals: ${team.goalsFor}',),
                   ),
                 );
               },

@@ -4,8 +4,8 @@ class TableLigaChempions {
   TableLigaChempions({required this.standings});
 
   factory TableLigaChempions.fromJson(Map<String, dynamic> json) {
-    var standingsList = json['standings'][0]['table'] as List<dynamic>;
-    List<TeamStandings> standings = standingsList
+    final standingsList = json['standings'][0]['table'] as List<dynamic>;
+    final List<TeamStandings> standings = standingsList
         .map((teamData) => TeamStandings.fromJson(teamData as Map<String, dynamic>))
         .toList();
     return TableLigaChempions(standings: standings);
