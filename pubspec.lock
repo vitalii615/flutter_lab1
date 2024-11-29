@@ -168,6 +168,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  light_plugin:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "17652b950ac07e3c6529dda00f491549bf9f7e85"
+      url: "https://github.com/vitalii615/my_light_plugin.git"
+    source: git
+    version: "0.0.1"
   lints:
     dependency: transitive
     description:
